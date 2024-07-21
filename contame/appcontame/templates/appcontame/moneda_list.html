@@ -1,0 +1,73 @@
+{% extends 'appcontame/tables.html' %}
+
+
+{% block titulo_pagina %}
+<title>Contame App - Monedas</title> 
+{% endblock titulo_pagina %}
+    
+
+{% block titulo %}
+<h1 class="h3 mb-0 text-gray-800">Monedas</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<!-- DataTale Monedas -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Monedas <a href="{% url 'crear-moneda' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg" title="Crear nueva Moneda"></i></a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Sigla</th>
+                        <th>Simbolo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Sigla</th>
+                        <th>Simbolo</th>
+                        <th>Acciones</th>
+                </tfoot>
+                <tbody>
+                {% for moneda in monedas %}
+                    <tr>
+                        <td>{{ moneda.id }}</td>
+                        <td>{{ moneda.nombre }}</td>
+                        <td>{{ moneda.sigla }}</td>
+                        <td>{{ moneda.simbolo }}</td>
+                        <td>
+                            <a
+                            href="{% url 'moneda' moneda.id %}"
+                            class="btn btn-info"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-eye fa-sm" title="Ver Moneda"></i>
+                            </a>
+                            <a
+                            href="{% url 'editar-moneda' moneda.id %}"
+                            class="btn btn-primary"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-edit fa-sm" title="Editar Moneda"></i>
+                            </a>
+                            <a
+                            href="{% url 'eliminar-moneda' moneda.id %}"
+                            class="btn btn-danger"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-trash fa-sm" title="Borrar Moneda"></i>
+                            </a>               
+                        </td>  
+                    </tr>
+                {% endfor %}
+                </tbody>         
+            </table>
+        </div>        
+    </div>
+</div>                        
+{% endblock contenido %}

@@ -1,0 +1,68 @@
+{% extends 'appcontame/tables.html' %}
+
+
+{% block titulo_pagina %}
+<title>Contame App - Cuentas</title> 
+{% endblock titulo_pagina %}
+    
+
+{% block titulo %}
+<h1 class="h3 mb-0 text-gray-800">Cuentas</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<!-- DataTale Cuentas -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Cuentas <a href="{% url 'crear-cuenta' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg" title="Crear nueva Cuenta"></i></a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                {% for cuenta in cuentas %}
+                    <tr>
+                        <td>{{ cuenta.id }}</td>
+                        <td>{{ cuenta.nombre }}</td>
+                        <td>
+                            <a
+                            href="{% url 'cuenta' cuenta.id %}"
+                            class="btn btn-info"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-eye fa-sm" title="Ver Cuenta"></i>
+                            </a>
+                            <a
+                            href="{% url 'editar-cuenta' cuenta.id %}"
+                            class="btn btn-primary"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-edit fa-sm" title="Editar Cuenta"></i>
+                            </a>
+                            <a
+                            href="{% url 'eliminar-cuenta' cuenta.id %}"
+                            class="btn btn-danger"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;"
+                            ><i class="fa fa-trash fa-sm" title="Borrar Cuenta"></i>
+                            </a>               
+                        </td>    
+                    </tr>
+                {% endfor %}
+                </tbody>         
+            </table>
+        </div>        
+    </div>
+</div>                        
+{% endblock contenido %}

@@ -1,0 +1,29 @@
+{% extends 'appcontame/index.html' %}
+
+
+{% block titulo_pagina %}
+<title>Contame App - Formulario Monedas</title> 
+{% endblock titulo_pagina %}
+    
+
+{% block titulo %}
+<h1 class="h3 mb-0 text-gray-800">Monedas</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Detalle de la moneda: {{moneda}}
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="button" value="Volver" onclick="window.location='{% url "monedas" %}'"/>
+        </form>
+    </div>
+</div>                        
+{% endblock contenido %}

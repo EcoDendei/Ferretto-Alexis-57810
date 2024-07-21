@@ -1,0 +1,29 @@
+{% extends 'appcontame/index.html' %}
+
+
+{% block titulo_pagina %}
+<title>Contame App - Formulario Cuentas</title> 
+{% endblock titulo_pagina %}
+    
+
+{% block titulo %}
+<h1 class="h3 mb-0 text-gray-800">Buscar Cuentas</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Busqueda de Cuentas
+    </div>
+    <div class="card-body">
+        <form action="{% url 'encontrar-cuentas' %}" method="GET">
+            {% csrf_token %}
+            <table>
+                <p>Ingrese el valor a buscar: <input type="text" name="buscar" id="buscar"></p>
+            </table>
+            <input type="submit" value="Buscar">
+        </form>
+    </div>
+</div>                        
+{% endblock contenido %}

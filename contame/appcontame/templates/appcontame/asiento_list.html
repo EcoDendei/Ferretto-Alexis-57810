@@ -1,0 +1,84 @@
+{% extends 'appcontame/tables.html' %}
+
+
+{% block titulo_pagina %}
+<title>Contame App - Asientos</title> 
+{% endblock titulo_pagina %}
+    
+
+{% block titulo %}
+<h1 class="h3 mb-0 text-gray-800">Asientos</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<!-- DataTale Cuentas -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Asientos <a href="{% url 'crear-asiento' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg" title="Crear nuevo Asiento"></i></a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Cuenta Origen</th>
+                        <th>Monto Origen</th>
+                        <th>Cuenta Destino</th>
+                        <th>Monto Destino</th>                        
+                        <th>Activo?</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Cuenta Origen</th>
+                        <th>Monto Origen</th>
+                        <th>Cuenta Destino</th>
+                        <th>Monto Destino</th>                        
+                        <th>Activo?</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                {% for asiento in asientos %}
+                    <tr>
+                        <td>{{ asiento.id }}</td>
+                        <td>{{ asiento.fecha }}</td>
+                        <td>{{ asiento.desc }}</td>
+
+                        {% for movimiento in asiento.movimiento_set.all %}
+                        <td>{{ movimiento.cuenta }}</td>
+                        <td>{{ movimiento.monto }}</td>
+                        {% endfor %}
+                        
+                        <td>{{ asiento.activo }}</td>    
+                        <td>{{ asiento.usuario }}</td>
+                        <td>
+                            {% if request.user.id == asiento.usuario.id or request.user.is_staff %}
+                            <!-- <a href="" class="btn btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;">
+                                <i class="fa fa-eye fa-sm" title="Ver Asiento"></i>
+                            </a> -->
+                            <a href="{% url 'editar-asiento' asiento.id %}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;">
+                                <i class="fa fa-edit fa-sm" title="Editar Asiento"></i>
+                            </a>
+                            <a href="{% url 'eliminar-asiento' asiento.id %}" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .25rem;">
+                                <i class="fa fa-trash fa-sm" title="Borrar Asiento"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>         
+            </table>
+        </div>
+    </div>
+</div>                        
+{% endblock contenido %}
